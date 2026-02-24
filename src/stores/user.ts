@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
         password: null,
     });
 
+    // aquí estoy guardando los datos de usuario
     const userData = ref(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') as string) : null); 
 
     function $setLogin(data: any | null){

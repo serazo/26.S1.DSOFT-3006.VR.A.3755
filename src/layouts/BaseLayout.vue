@@ -119,6 +119,7 @@
     await userStore.$setLogin(null);
     router.push('/login');
   }
+  //comentario de prueba
 </script>
 
 <style scoped>
