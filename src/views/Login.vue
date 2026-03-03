@@ -28,6 +28,7 @@
                     fill="outline" 
                     placeholder="Enter text" 
                     v-model="userStore.login.password"
+                    @keyup.enter="handleLogin"
                     type="password">
                 </ion-input>
             </ion-item>   
