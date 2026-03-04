@@ -1,22 +1,20 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import axiosRiksiri from "@/axios/axiosRiksiri";
+
 export const useContentStore = defineStore('content', () => {
     const menu = ref(localStorage.getItem('menu') ? JSON.parse(localStorage.getItem('menu') as string) : null);
     const content = ref({
-        id: null,
-        nombre: null,
-        descripcion: null,
-        url: null,
-        tipo: null,
+        contenido:{
+            name: null,
+            contenido: null,
+            youtube: '',
+        }
     }); 
+    const loading = ref(false);
     function setContent(data: any | null){
         content.value = data || {
-            id: null,
-            nombre: null,   
-
-            descripcion: null,
-            url: null,
-            tipo: null,
+            
         };
     }   
     function $setMenu(data: any | null){
@@ -28,5 +26,15 @@ export const useContentStore = defineStore('content', () => {
         }   
     }   
 
-    return { content, setContent, menu, $setMenu };
+    function $getContent(name: string){
+        loading.value = true;
+        return axiosRiksiri.get('/contenido/'+name).then( res => {
+            setContent(res.data);
+            loading.value = false;
+            return res.data;
+        })
+    }
+
+    return { content, setContent, menu, $setMenu, $getContent, loading };
+
 });

@@ -1,4 +1,3 @@
-
 <template>
     <ion-page>
         <ion-header>
@@ -11,25 +10,25 @@
             <div v-if="imageSrc">
                 <img :src="imageSrc" alt="Taken picture" />
             </div>
-            <pre>{{ imageInfo }}</pre>
         </ion-content>
     </ion-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
 const imageSrc = ref<string | undefined>('');
-const imageInfo = ref<string | undefined>('');
+    const imageInfo = ref<any>(null);
+
 const takePicture = async () => {
   const image = await Camera.getPhoto({
     quality: 90,
     allowEditing: true,
     resultType: CameraResultType.Uri
   });
-  const imageUrl = image.webPath;
   imageInfo.value = image;
+  const imageUrl = image.webPath;
   imageSrc.value = imageUrl;
 };
 
