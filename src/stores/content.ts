@@ -9,8 +9,18 @@ export const useContentStore = defineStore('content', () => {
             name: null,
             contenido: null,
             youtube: '',
-        }
+        },
+        internal_name: null,
     }); 
+    const home = ref({
+        url: null,
+        internal_name: '',
+    });
+    const next = ref({
+        id: null,
+        url: null,
+        internal_name: '',
+    });
     const loading = ref(false);
     function setContent(data: any | null){
         content.value = data || {
@@ -26,6 +36,10 @@ export const useContentStore = defineStore('content', () => {
         }   
     }   
 
+    function $setHome(data: any | null){
+        home.value = data || {};
+    }   
+
     function $getContent(name: string){
         loading.value = true;
         return axiosRiksiri.get('/contenido/'+name).then( res => {
@@ -35,6 +49,14 @@ export const useContentStore = defineStore('content', () => {
         })
     }
 
-    return { content, setContent, menu, $setMenu, $getContent, loading };
+    function $seteaSiguiente(){
+        return axiosRiksiri.post('/seteasiguiente', next.value);
+    }
+
+    function $setNext(data: any | null){
+        next.value = data || {};
+    }
+
+    return { content, setContent, menu, $setMenu, $getContent, loading, home, $setHome, next, $setNext, $seteaSiguiente };
 
 });

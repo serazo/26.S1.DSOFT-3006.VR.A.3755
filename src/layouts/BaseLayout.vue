@@ -23,14 +23,16 @@
                                 </ion-item>
                                 <div slot="content">
                                     <ion-list>
-                                        <ion-menu-toggle v-for="(item, itemKey) in menu.sub" :key="itemKey">
-                                            <ion-item 
-                                            :router-link="'/'+item.url"
-                                            @click="contentStore.$getContent(item.internal_name)"
-                                            >
-                                                <ion-label>{{ item.name }}</ion-label>
-                                            </ion-item>
-                                        </ion-menu-toggle>
+                                        <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                            <ion-menu-toggle v-if="item.active === 'yes'">
+                                                <ion-item 
+                                                :router-link="'/'+item.url"
+                                                @click="contentStore.$getContent(item.internal_name)"
+                                                >
+                                                    <ion-label>{{ item.name }}</ion-label>
+                                                </ion-item>
+                                            </ion-menu-toggle>
+                                        </template>
                                     </ion-list>
                                 </div>
                             </ion-accordion>
@@ -71,7 +73,7 @@
     router.push('/login');
   }
 
-  contentStore.$getContent(route.params.name as string);
+  contentStore.$getContent(route.params.name as string)
   //comentario de prueba
 </script>
 
