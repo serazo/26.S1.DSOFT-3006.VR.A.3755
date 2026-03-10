@@ -18,7 +18,7 @@
                     label-placement="floating" 
                     fill="outline" 
                     v-model="userStore.login.username"
-                    placeholder="Enter text">
+                    placeholder="Enter username">
                 </ion-input>
             </ion-item>
             <ion-item lines="none">
@@ -28,7 +28,7 @@
                     label-placement="floating" 
                     class="ion-margin-top"
                     fill="outline" 
-                    placeholder="Enter text" 
+                    placeholder="Enter password" 
                     v-model="userStore.login.password"
                     @keyup.enter="handleLogin"
                     type="password">

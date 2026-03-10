@@ -32,6 +32,11 @@ const route = useRoute();
 const contentStore = useContentStore();
 const router = useRouter();
 
+
+contentStore.$getContent(contentStore.home.internal_name).then( res => {
+    router.push({ path: '/'+contentStore.home.url });
+});
+
 checkNext()
 
 function checkNext(){
@@ -57,10 +62,13 @@ async function setNext(){
     item.sub.map( (sub_item: any) => {
       if(sub_item.id === contentStore.next.id) {
         sub_item.active = 'yes';
+        localStorage.setItem('home', JSON.stringify(contentStore.next))
       }
     })
   })
-  sessionStorage.setItem('menu', JSON.stringify(contentStore.menu));
+  
+  localStorage.setItem('menu', JSON.stringify(contentStore.menu));
+  
 }
 
 async function siguiente(){
